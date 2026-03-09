@@ -22,7 +22,7 @@ java ui.Main
 
 ### Prueba 1 — Listar materiales
 1) En el menú, elija `1`.
-**Resultado esperado:** se listan Consola `ID: 3`, `Título: Z BOX`, `Precio: $239.99`, `Marca: MacroSoft`, `Unidades: 2`, `Disponible: true` y Videojuego `ID: 4`, `Título: God of peace`, `Precio: $19.99`, `Plataforma: PolyStation 5`, `Unidades: 3`, `Disponible: true`.
+**Resultado esperado:** se listan Consola `ID: 3`, `Título: Z BOX`, `Precio: $239.99`, `Marca: MacroSoft`, `Unidades: 2`, `Disponible: true` y Videojuego `ID: 4`, `Título: God of peace`, `Precio: $19.99`, `Plataforma: PolyStation 5`,`Genero : Accion`, `Unidades: 3`, `Disponible: true`.
 
 ### Prueba 2 — Prestar un material disponible
 1) Elija `2` para ver Listado de clientes.
@@ -35,22 +35,11 @@ java ui.Main
 ### Prueba 3 — Intentar vender un producto ya vendido
 Objetivo: verificar que el sistema impide vender un producto sin unidades disponibles.
 Pasos:
-1)	Elija nuevamente la opción 3 (Vender producto).
+1)	Elija nuevamente la opción 4 (Vender producto).
 	
 2)	Ingrese el mismo ID de cliente y el mismo ID de producto ya vendido (ej. ID 4).
-Resultado esperado: "El material NO esta disponible (ya esta prestado)."
+Resultado esperado: "Usuario no encontrado."
 
-### Prueba 4 — Devolver un producto
-Objetivo: verificar que al devolver una transacción el producto vuelve a estar disponible.
-Pasos:
-1)	Elija la opción 5 (Listar transacciones) para ver el ID de la transacción activa.
-Resultado esperado: Se lista la transacción creada en la prueba 2 con su ID correspondiente.
-
-2)	Elija la opción 4 (Devolver producto) e ingrese el ID de la transacción listada.
-Resultado esperado: "Transaccion X devuelta y cerrada. Producto: God of peace | Disponible: true". El producto vuelve a Disponible: true.
-
-
----
 ## Evidencias por requisito 
 ### 1) Relaciones entre las clases 
 #### Uso (dependency): ``service.TiendaVideojuegos`` usa ``service.CalculadoraPrecio``
