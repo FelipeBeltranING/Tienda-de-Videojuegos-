@@ -1,5 +1,6 @@
 package usecases;
 import entities.*;
+import infraestructure.services.IdGenerator;
 
 import java.util.ArrayList;
     public class  TiendaVideojuego {
