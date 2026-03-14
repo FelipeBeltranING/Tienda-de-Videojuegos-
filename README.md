@@ -61,7 +61,7 @@ El resultado deberia permanecer igual ya que el producto no fue posible venderlo
 
 ## Evidencias por requisito 
 ### 1) Relaciones entre las clases 
-#### Uso (dependency): ``usecases.TiendaVideojuegos`` usa ``usecases.CalculadoraPrecio``
+#### Uso (dependency): ``usecases.TiendaVideojuegos`` usa ``usecases.services.CalculadoraPrecio``
 
 - ``private final CalculadoraPrecio calculadoraPrecio;``
 - ``calculadoraPrecio.calcularPrecioVenta(...)``
@@ -109,7 +109,7 @@ Se invocan métodos sobrescritos: ``vender()`` y ``estaDisponible()``
 
 ``usecases.IdGenerator.generarId() (static)``
 
-``usecases.Reglas ``con public`` static`` double iva
+``usecases.services.Reglas ``con public`` static`` double iva
 
 ## Diagram UML
 El diagrama UML correspondiente al código está en:
