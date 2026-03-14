@@ -5,6 +5,7 @@ import entities.*;
 import infraestructure.services.IdGenerator;
 import usecases.*;
 
+
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

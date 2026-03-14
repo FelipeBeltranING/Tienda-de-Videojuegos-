@@ -1,6 +1,6 @@
-package usecases;
+package usecases.services;
 import entities.*;
-import infraestructure.services.IdGenerator;
+
 
 import java.util.ArrayList;
     public class  TiendaVideojuego {
@@ -39,10 +39,7 @@ import java.util.ArrayList;
             return null;
         }
 //funciones de registrar para productos, transacciones y clientes:
-        public void registrarProducto(Producto p){
-            if(p == null) return;
-            productos.add(p);
-        }
+
 
         public void registrarTransaccion(Transaccion t){
             if (t == null) return;
