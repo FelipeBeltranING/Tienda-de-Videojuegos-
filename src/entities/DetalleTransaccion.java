@@ -1,18 +1,13 @@
 package entities;
 
-import usecases.CalculadoraPrecio;
-import usecases.Reglas;
-
 public class DetalleTransaccion {
 
-    private final Producto producto;
     private final double subtotal;
     private final double total;
 
-    public DetalleTransaccion(Producto producto){
-        this.producto = producto;
-        this.subtotal = producto.getPrecioBase();
-        this.total = new CalculadoraPrecio().calcularPrecioVenta(producto.getPrecioBase(),Reglas.iva);
+    public DetalleTransaccion(double total, double subtotal){
+        this.subtotal = subtotal;
+        this.total = total;
     }
 
     public double getSubtotal() {return subtotal;}

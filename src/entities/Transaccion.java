@@ -1,7 +1,5 @@
-
-
 package entities;
-import usecases.IdGenerator;
+
 import java.time.LocalDate;
 
 public class Transaccion {
@@ -13,12 +11,12 @@ public class Transaccion {
     private final DetalleTransaccion detalleTransaccion;
 
 
-    public Transaccion(Cliente cliente, Producto producto){
-        this.id = IdGenerator.generarId();
+    public Transaccion(int id,Cliente cliente, Producto producto, DetalleTransaccion detalleTransaccion){
+        this.id = id;
         this.cliente = cliente;
         this.producto = producto;
         this.fecha = LocalDate.now();
-        this.detalleTransaccion = new DetalleTransaccion(producto);
+        this.detalleTransaccion = detalleTransaccion;
     }
 
     public int getId(){return id;}
@@ -27,7 +25,7 @@ public class Transaccion {
     public LocalDate getFecha(){return fecha;}
     public DetalleTransaccion getDetalleTransaccion() {return detalleTransaccion;}
 
-    @Override                           
+    @Override                              // ← agregar desde aquí
     public String toString() {
         return "Transaccion{" +
                 "\n  ID: " + id +
