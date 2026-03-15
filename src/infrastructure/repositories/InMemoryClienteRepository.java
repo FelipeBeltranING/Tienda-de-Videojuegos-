@@ -1,4 +1,4 @@
-package infraestructure.repositories;
+package infrastructure.repositories;
 
 import java.util.ArrayList;
 import java.util.List;

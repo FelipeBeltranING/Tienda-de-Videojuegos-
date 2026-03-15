@@ -1,4 +1,4 @@
-package infraestructure.repositories;
+package infrastructure.repositories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class InMemoryTransaccionRepository implements TransaccionRepository {
     }
 
     @Override
-    public Transaccion findById(string id) {
+    public Transaccion findById(String id) {
         for (Transaccion transaccion : transaccions) {
             if (transaccion.getId().equals(id)) {
                 return transaccion;

@@ -1,4 +1,4 @@
-package infraestructure.repositories;
+package infrastructure.repositories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class InMemoryProductoRepository implements ProductoRepository {
     }
 
     @Override
-    public Producto findById(string id) {
+    public Producto findById(String id) {
         for (Producto producto : productos) {
             if (producto.getId().equals(id)) {
                 return producto;

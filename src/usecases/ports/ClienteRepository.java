@@ -5,6 +5,6 @@ import entities.Cliente;
 
 public interface ClienteRepository {
     void save(Cliente cliente);
-    Cliente findById(int id);
+    Cliente findById(String id);
     List<Cliente> findAll();
 }

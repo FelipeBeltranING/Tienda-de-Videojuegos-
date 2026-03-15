@@ -1,107 +1,78 @@
 package usecases.services;
 import entities.*;
+import infrastructure.repositories.InMemoryClienteRepository;
+import infrastructure.repositories.InMemoryProductoRepository;
+import infrastructure.repositories.InMemoryTransaccionRepository;
+import usecases.dto.OperationResult;
+import usecases.ports.ClienteRepository;
+import usecases.ports.IdGeneratorRepository;
+import usecases.ports.ProductoRepository;
+import usecases.ports.TransaccionRepository;
 
 
 import java.util.ArrayList;
-    public class  TiendaVideojuego {
+import java.util.List;
 
-        private String nombre;
-        private final ArrayList<Producto> productos;
-        private final ArrayList<Transaccion> transacciones;
-        private final ArrayList<Cliente> clientes;
-        private final CalculadoraPrecio calculadoraPrecio;
-        public TiendaVideojuego(String nombre){
-            this.nombre = nombre;
-            this.productos = new ArrayList<>();
-            this.transacciones = new ArrayList<>();
-            this.clientes = new ArrayList<>();
-            this.calculadoraPrecio = new CalculadoraPrecio();
-        }
-        public String getNombre(){return nombre;}
+public class  TiendaVideojuego {
 
+    private String nombre;
+    private final ClienteRepository clienteRepository;
+    private final ProductoRepository productoRepository;
+    private final TransaccionRepository transaccionRepository;
 
-        public void registrarUsuario(String nombre, String email) { registrarUsuarioUseCase.ejecutar(nombre,email); }
+    private final RegistrarClienteUseCase registrarClienteUseCase;
+    private final RegistrarProductoUseCase registrarProductoUseCase;
+    private final RegistrarTransaccionUseCase registrarTransaccionUseCase;
+    private final VenderUseCase venderUseCase;
+    private final CalculadoraPrecio calculadoraPrecio;
 
-        public Producto buscarProducto(int idProducto){ 
-            for(Producto p : productos){
-                if (p.getId() == idProducto) return p;
-            }
-            return null; 
-        }
-        public Transaccion buscarTransaccion(int idTransaccion){
-            for(Transaccion t : transacciones){
-                if(t.getId() == idTransaccion) return t;
-            }
-            return null;
-        }
-
-        public Cliente buscarCliente(int idCliente){
-            for(Cliente c : clientes){
-                if (c.getId() == idCliente)  return c;
-            }
-            return null;
-        }
-
-
-//funciones de listar para productos, transacciones y clientes
-        public void listarProductos(){
-            if(productos.isEmpty()){
-                System.out.println("No hay productos para ser listados");
-                return;
-            }
-            System.out.println("---Lista de Productos en el sistema---");
-                for(Producto p : productos){
-                    System.out.println(p);
-                }
-        }
-
-        public void listarTransacciones(){
-            if(transacciones.isEmpty()){
-                System.out.println("No hay Transacciones para ser listadas");
-                return;
-            }
-            System.out.println("---Lista de las transacciones---");
-                for(Transaccion t : transacciones){
-                    System.out.println(t);
-                }
-        }
-
-        public void listarClientes(){
-            if(clientes.isEmpty()){
-                System.out.println("No hay clientes para listar");
-                return;
-            }
-            System.out.println("---Lista de los clientes---");
-                for(Cliente c : clientes){
-                    System.out.println(c);
-                }
-        }
-//funcion de venta
-        public void vender(int idCliente, int idProducto){
-            Cliente c = buscarCliente(idCliente);
-            Producto p = buscarProducto(idProducto);
-
-            if (c == null){
-                System.out.println("Usuario no encontrado");
-                return;
-            }
-            if (p == null){
-                System.out.println("Producto no encontrado");
-                return;
-            }
-            if (!p.estaDisponible()){
-                System.out.println("Producto no disponible");
-                return;
-            }
-
-            Transaccion t = new Transaccion(IdGenerator.generarId(),c, p, new DetalleTransaccion(calculadoraPrecio.calcularPrecioVenta(p.getPrecioBase(),Reglas.iva),p.getPrecioBase()));
-            transacciones.add(t);
-            p.vender(); //metodo de interfaz
-
-            System.out.println("venta realizada -> " + p.getTitulo() + ", id -> " + p.getId());
-            System.out.println("Subtotal: " + t.getDetalleTransaccion().getSubtotal() + " IVA: " + Reglas.iva*100+"%");
-            System.out.println("Costo total de la compra: " + t.getDetalleTransaccion().getTotal() +"$");
-        }
-
+    public TiendaVideojuego(String nombre, ClienteRepository clienteRepository, ProductoRepository productoRepository, TransaccionRepository transaccionRepository, RegistrarClienteUseCase registrarClienteUseCase, RegistrarProductoUseCase registrarProductoUseCase, RegistrarTransaccionUseCase registrarTransaccionUseCase, VenderUseCase venderUseCase) {
+        this.nombre = nombre;
+        this.clienteRepository = clienteRepository;
+        this.productoRepository = productoRepository;
+        this.transaccionRepository = transaccionRepository;
+        this.registrarClienteUseCase = registrarClienteUseCase;
+        this.registrarProductoUseCase = registrarProductoUseCase;
+        this.registrarTransaccionUseCase = registrarTransaccionUseCase;
+        this.calculadoraPrecio = new CalculadoraPrecio();
+        this.venderUseCase = venderUseCase;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void registrarConsola(String titulo, double precio, boolean disp, int unidades, String marca) {
+        registrarProductoUseCase.ejecutar(titulo, precio, disp, unidades, marca);
+    }
+
+    public void registrarVideojuego(String titulo, double precio, boolean disp, int unidades, String plat, String gen) {
+        registrarProductoUseCase.ejecutar(titulo, precio, disp, unidades, plat, gen);
+    }
+
+    public void registrarCliente(String nombre, String email) {
+        registrarClienteUseCase.ejecutar(nombre,email);
+    }
+
+    public void registrarTransaccion(Cliente cliente, Producto producto, DetalleTransaccion detalleTransaccion) {
+        registrarTransaccionUseCase.ejecutar(cliente,producto,detalleTransaccion);
+    }
+
+    public OperationResult realizarVenta(String idCliente, String idProducto) {
+        return venderUseCase.ejecutar(idCliente, idProducto);
+    }
+
+    public List<Cliente> listarClientes() {
+        return clienteRepository.findAll();
+    }
+
+    public List<Producto> listarProductos() {
+        return productoRepository.findAll();
+    }
+
+    public List<Transaccion> listarTransacciones() {
+        return transaccionRepository.findAll();
+    }
+
+}
 

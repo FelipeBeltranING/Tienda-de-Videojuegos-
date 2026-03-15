@@ -1,6 +1,8 @@
 package usecases.services;
 import usecases.ports.IdGeneratorRepository;
+import usecases.ports.ClienteRepository;
 import entities.Cliente;
+
 
 public class RegistrarClienteUseCase {
 

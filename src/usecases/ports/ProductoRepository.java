@@ -5,6 +5,6 @@ import entities.Producto;
 
 public interface ProductoRepository {
     void save(Producto producto);
-    Producto findById(int id);
+    Producto findById(String id);
     List<Producto> findAll();
 }
