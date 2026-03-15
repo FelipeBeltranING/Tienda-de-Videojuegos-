@@ -9,3 +9,4 @@ public interface TransaccionRepository {
     Transaccion findById(int id);
     List<Transaccion> findAll();
 }
+
