@@ -2,6 +2,7 @@ package usecases.services;
 
 import entities.*;
 import usecases.ports.IdGeneratorRepository;
+import usecases.ports.TransaccionRepository;
 
 public class RegistrarTransaccionUseCase {
 
@@ -15,7 +16,7 @@ public class RegistrarTransaccionUseCase {
 
     public Transaccion ejecutar( Cliente cliente, Producto producto, DetalleTransaccion detalleTransaccion) {
         Transaccion transaccion = new Transaccion(idGeneratorRepository.nextId('T'),cliente, producto,detalleTransaccion);
-        TransaccionRepository.save(transaccion);
+        transaccionRepository.save(transaccion);
         return transaccion;
     }
 }

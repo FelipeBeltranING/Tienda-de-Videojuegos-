@@ -2,10 +2,11 @@ package usecases.services;
 
 import entities.Consola;
 import entities.Videojuego;
+import infrastructure.repositories.InMemoryProductoRepository;
 import usecases.ports.IdGeneratorRepository;
+import usecases.ports.ProductoRepository;
 
 public class RegistrarProductoUseCase {
-
     private final ProductoRepository productoRepository;
     private final IdGeneratorRepository idGeneratorRepository;
 
@@ -16,13 +17,13 @@ public class RegistrarProductoUseCase {
 
     public Consola ejecutar( String titulo, double precioBase, boolean disponible, int unidades, String marca) {
         Consola consola = new Consola(idGeneratorRepository.nextId('C'),titulo, precioBase, disponible,unidades, marca);
-        ProductoRepository.save(consola);
+        productoRepository.save(consola);
         return consola;
     }
 
     public Videojuego ejecutar( String titulo, double precioBase, boolean disponible, int unidades,String plataforma, String genero) {
         Videojuego videojuego = new Videojuego(idGeneratorRepository.nextId('V'), titulo,precioBase, disponible, unidades,plataforma, genero);
-        ProductoRepository.save(videojuego);
+        productoRepository.save(videojuego);
         return videojuego;
     }
 }
